@@ -1,0 +1,80 @@
+# -*- coding: utf-8 -*-
+import random
+import thaitextgenerator.corpus
+
+class Unigram:
+    def __init__(self,name:str="tnc"):
+        """
+        :param str name: corpus name
+        :rtype: None
+        """
+        if name == "tnc":
+            self.counts = thaitextgenerator.corpus.load_tnc_unigram()
+        elif name == "ttc":
+            self.counts = thaitextgenerator.corpus.load_ttc_unigram()
+        self.word = list(self.counts.keys())
+    def gen_sentence(self,N:int=3, start_seq:str=None, output_str:bool = True, duplicate:bool=False):
+        """
+        :param int N: number of word.
+        :param str start_seq: word for begin word.
+        :param bool output_str: output is str
+        :param bool duplicate: duplicate word in sent
+
+        :return: list words or str words
+        :rtype: str,list
+        """
+        if start_seq is None: start_seq = random.choice(self.word)
+        rand_text = start_seq.lower()
+        return self.next_word(rand_text, N, output_str, duplicate)
+    def next_word(self, text:str, N:int, output_str:str, duplicate:bool=False):
+        self.l = []
+        self.l.append(text)
+        for i in range(N):
+            self._word = random.choice(self.word)
+            if duplicate == False:
+                while self._word in self.l:
+                    self._word = random.choice(self.word)
+            self.l.append(self._word)
+            
+        if output_str:
+            return "".join(self.l)
+        return self.l
+
+class Bigram:
+    def __init__(self,name:str="tnc"):
+        """
+        :param str name: corpus name
+        :rtype: None
+        """
+        if name == "tnc":
+            self.uni = thaitextgenerator.corpus.load_tnc_unigram()
+            self.bi = thaitextgenerator.corpus.load_tnc_bigram()
+        self.uni_keys = list(self.uni.keys())
+        self.bi_keys = list(self.bi.keys())
+        self.words = [i[-1]  for i in self.bi_keys]
+    def prob(self, t1:str, t2:str): # from https://towardsdatascience.com/understanding-word-n-grams-and-n-gram-probability-in-natural-language-processing-9d9eef0fa058
+        try:
+            v=self.bi[(t1,t2)]/self.uni[t1]
+        except:
+            v=0.0
+        return v
+    def gen_sentence(self,N:int=4,prob:float=0.001, start_seq:str=None, output_str:bool = True, duplicate:bool=False):
+        if start_seq is None: start_seq = random.choice(self.words)
+        self.late_word = start_seq
+        self.list_word = []
+        self.list_word.append(start_seq)
+
+        for i in range(N):
+            if duplicate:
+                self._temp = [j for j in self.bi_keys if j[0]==self.late_word and j[1]!="<s/>"]
+            else:
+                self._temp = [j for j in self.bi_keys if j[0]==self.late_word and j[1]!="<s/>" and j[1] not in self.list_word]
+            self._probs = [self.prob(self.late_word,i[-1]) for i in self._temp]
+            if max(self._probs)<prob:
+                break
+            self.items = self._temp[self._probs.index(max(self._probs))]
+            self.late_word = self.items[-1]
+            self.list_word.append(self.late_word)
+        if output_str:
+            return ''.join(self.list_word)
+        return self.list_word
