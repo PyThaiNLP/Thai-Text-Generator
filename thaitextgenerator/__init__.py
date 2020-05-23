@@ -62,6 +62,15 @@ class Bigram:
         self.bi_keys = list(self.bi.keys())
         self.words = [i[-1]  for i in self.bi_keys]
     def prob(self, t1:str, t2:str): # from https://towardsdatascience.com/understanding-word-n-grams-and-n-gram-probability-in-natural-language-processing-9d9eef0fa058
+        """
+        probability word
+        
+        :param int t1: text 1
+        :param int t2: text 2
+
+        :return: probability value
+        :rtype: float
+        """
         try:
             v=self.bi[(t1,t2)]/self.uni[t1]
         except:
