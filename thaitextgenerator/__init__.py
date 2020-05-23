@@ -13,7 +13,12 @@ class Unigram:
         elif name == "ttc":
             self.counts = thaitextgenerator.corpus.load_ttc_unigram()
         self.word = list(self.counts.keys())
-    def gen_sentence(self,N:int=3, start_seq:str=None, output_str:bool = True, duplicate:bool=False):
+        self.n = 0
+        for i in self.word:
+            self.n += self.counts[i]
+        self.prob = {i:self.counts[i]/self.n for i in self.word}
+        self._word_prob = {}
+    def gen_sentence(self,N:int=3,prob:float=0.001, start_seq:str=None, output_str:bool = True, duplicate:bool=False):
         """
         :param int N: number of word.
         :param str start_seq: word for begin word.
@@ -25,15 +30,19 @@ class Unigram:
         """
         if start_seq is None: start_seq = random.choice(self.word)
         rand_text = start_seq.lower()
-        return self.next_word(rand_text, N, output_str, duplicate)
-    def next_word(self, text:str, N:int, output_str:str, duplicate:bool=False):
+        self._word_prob = {i:self.counts[i]/self.n for i in self.word if self.counts[i]/self.n>=prob}
+        return self.next_word(rand_text, N, output_str,prob=prob, duplicate=duplicate)
+    def next_word(self,text:str, N:int, output_str:str,prob, duplicate:bool=False):
         self.l = []
         self.l.append(text)
+        self._word_list = list(self._word_prob.keys())
+        if N>len(self._word_list):
+            N=len(self._word_list)
         for i in range(N):
-            self._word = random.choice(self.word)
+            self._word = random.choice(self._word_list)
             if duplicate == False:
                 while self._word in self.l:
-                    self._word = random.choice(self.word)
+                    self._word = random.choice(self._word_list)
             self.l.append(self._word)
             
         if output_str:
