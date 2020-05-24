@@ -1,4 +1,4 @@
-# Thai Text Generator
+# TTG : Thai Text Generator
 Thai Text Generator
 
 ## Install

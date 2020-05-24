@@ -5,13 +5,14 @@ with open("README.md", "r", encoding="utf-8") as f:
     readme = f.read()
 
 requirements = [
+    "tqdm"
 ]
 
 extras = {
 } #"nltk": ["nltk"],
 
 setup(
-    name="thaitextgenerator",
+    name="ttg",
     version="0.1-dev1",
     description="Thai Text Generator library",
     long_description=readme,
