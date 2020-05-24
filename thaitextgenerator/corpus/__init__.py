@@ -29,7 +29,10 @@ def load_tnc_unigram()->dict:
     with open(corpus_path,"r",encoding="utf-8") as f:
         for i in f.readlines():
             _temp = i.strip().split("\t")
-            data[_temp[0]] = int(_temp[-1])
+            if _temp[0]!="<s>":
+                data[_temp[0]] = int(_temp[-1])
+            else:
+                data["<s/>"] = int(_temp[-1])
     return data
 
 def load_tnc_bigram()->dict:
@@ -43,6 +46,19 @@ def load_tnc_bigram()->dict:
         for i in f.readlines():
             _temp = i.strip().split("	")
             data[(_temp[0],_temp[1])] = int(_temp[-1])
+    return data
+
+def load_tnc_tigram()->dict:
+    corpus_path = get_path("201705_3gram.txt")
+    if Path(corpus_path).is_file()==False:
+        download("http://www.arts.chula.ac.th/ling/wp-content/uploads/tnc201705_3gram.zip",get_path("tnc201705_3gram.zip"))
+        with zipfile.ZipFile(get_path("tnc201705_3gram.zip"),"r") as zip_ref:
+            zip_ref.extractall(path)
+    data = defaultdict(int)
+    with open(corpus_path,"r",encoding="utf-8") as f:
+        for i in f.readlines():
+            _temp = i.strip().split("	")
+            data[(_temp[0],_temp[1],_temp[2])] = int(_temp[-1])
     return data
 
 def load_ttc_unigram()->dict:

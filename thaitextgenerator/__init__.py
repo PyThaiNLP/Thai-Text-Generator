@@ -85,9 +85,9 @@ class Bigram:
 
         for i in range(N):
             if duplicate:
-                self._temp = [j for j in self.bi_keys if j[0]==self.late_word and j[1]!="<s/>"]
+                self._temp = [j for j in self.bi_keys if j[0]==self.late_word]
             else:
-                self._temp = [j for j in self.bi_keys if j[0]==self.late_word and j[1]!="<s/>" and j[1] not in self.list_word]
+                self._temp = [j for j in self.bi_keys if j[0]==self.late_word and j[1] not in self.list_word]
             self._probs = [self.prob(self.late_word,l[-1]) for l in self._temp]
             self._p2 = [j for j in self._probs if j>=prob]
             if len(self._p2)==0:
@@ -98,3 +98,60 @@ class Bigram:
         if output_str:
             return ''.join(self.list_word)
         return self.list_word
+
+class Tigram:
+    def __init__(self,name:str="tnc"):
+        """
+        :param str name: corpus name
+        :rtype: None
+        """
+        if name == "tnc":
+            self.uni = thaitextgenerator.corpus.load_tnc_unigram()
+            self.bi = thaitextgenerator.corpus.load_tnc_bigram()
+            self.ti = thaitextgenerator.corpus.load_tnc_tigram()
+        self.uni_keys = list(self.uni.keys())
+        self.bi_keys = list(self.bi.keys())
+        self.ti_keys = list(self.ti.keys())
+        self.words = [i[-1]  for i in self.bi_keys]
+    def prob(self, t1:str, t2:str, t3:str): # from https://towardsdatascience.com/understanding-word-n-grams-and-n-gram-probability-in-natural-language-processing-9d9eef0fa058
+        """
+        probability word
+        
+        :param int t1: text 1
+        :param int t2: text 2
+        :param int t3: text 3
+
+        :return: probability value
+        :rtype: float
+        """
+        try:
+            v=self.ti[(t1, t2, t3)]/self.bi[(t1, t2)]
+        except:
+            v=0.0
+        return v
+    def gen_sentence(self,N:int=4,prob:float=0.001, start_seq:tuple=None, output_str:bool = True, duplicate:bool=False):
+        if start_seq is None: start_seq = random.choice(self.bi_keys)
+        self.late_word = start_seq
+        self.list_word = []
+        self.list_word.append(start_seq)
+
+        for i in range(N):
+            if duplicate:
+                self._temp = [j for j in self.ti_keys if j[:2]==self.late_word]
+            else:
+                self._temp = [j for j in self.ti_keys if j[:2]==self.late_word and j[1:] not in self.list_word]
+            self._probs = [self.prob(l[0],l[1],l[2]) for l in self._temp]
+            self._p2 = [j for j in self._probs if j>=prob]
+            if len(self._p2)==0:
+                break
+            self.items = self._temp[self._probs.index(random.choice(self._p2))]
+            self.late_word = self.items[1:]
+            self.list_word.append(self.late_word)
+        self.listdata = []
+        for i in self.list_word:
+            for j in i:
+                if j not in self.listdata:
+                    self.listdata.append(j)
+        if output_str:
+            return ''.join(self.listdata)
+        return self.listdata#self.list_word
