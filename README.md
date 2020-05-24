@@ -4,7 +4,12 @@ Thai Text Generator
 ## Install
 
 ```sh
-pip install -e .
+pip install ttg
+```
+
+if you want used thai2fit, you can install :
+```sh
+pip install ttg[thai2fit]
 ```
 
 ## Example
@@ -20,6 +25,58 @@ c.gen_sentence(N=10, start_seq=("คน","ดี"))
 # Thai2Fit
 from thaitextgenerator.thai2fit import gen_sentence
 gen_sentence()
+```
+
+## Docs
+
+### N-Gram
+**import**
+```python
+from thaitextgenerator import *
+```
+#### Unigram
+
+we support corpus
+
+- TNC : Thai National Corpus (Default)
+- TCC : Thai Textbook Corpus
+- oscar : Open Super-large Crawled ALMAnaCH coRpus
+
+```python
+Unigram(name = "tnc or tcc or oscar")
+
+Unigram().gen_sentence(N:int=3,prob:float=0.001, start_seq:str=None ,output_str:bool = True, duplicate:bool=False)
+```
+
+#### Bigram
+
+we support corpus
+
+- TNC : Thai National Corpus (Default)
+
+```python
+Bigram(name = "tnc")
+
+Bigram().gen_sentence(N:int=4,prob:float=0.001, start_seq:str=None, output_str:bool = True, duplicate:bool=False)
+```
+
+#### Tigram
+
+we support corpus
+
+- TNC : Thai National Corpus (Default)
+
+```python
+Tigram(name = "tnc")
+
+Bigram().gen_sentence(N:int=4,prob:float=0.001, start_seq:tuple=None, output_str:bool = True, duplicate:bool=False)
+```
+
+### Thai2Fit
+```python
+# Thai2Fit
+from thaitextgenerator.thai2fit import gen_sentence
+en_sentence(N:int=4,prob:float=0.001, start_seq:str=None, output_str:bool = True)
 ```
 
 ## License
