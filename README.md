@@ -17,6 +17,9 @@ b=Bigram()
 print(b.gen_sentence(start_seq="คน", N=10))
 c=Tigram()
 c.gen_sentence(N=10, start_seq=("คน","ดี"))
+# Thai2Fit
+from thaitextgenerator.thai2fit import gen_sentence
+gen_sentence()
 ```
 
 ## License

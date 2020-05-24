@@ -10,6 +10,7 @@ requirements = [
 ]
 
 extras = {
+    "thai2fit": ["pythainlp>=2.1","fastai","pandas","emoji>=0.5.1", "gensim>=3.2.0", "numpy>=1.16.1"]
 } #"nltk": ["nltk"],
 
 setup(
