@@ -5,7 +5,8 @@ with open("README.md", "r", encoding="utf-8") as f:
     readme = f.read()
 
 requirements = [
-    "tqdm"
+    "tqdm",
+    "requests"
 ]
 
 extras = {
