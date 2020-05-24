@@ -13,6 +13,8 @@ class Unigram:
             self.counts = thaitextgenerator.corpus.load_tnc_unigram()
         elif name == "ttc":
             self.counts = thaitextgenerator.corpus.load_ttc_unigram()
+        elif name == "oscar":
+            self.counts = thaitextgenerator.corpus.load_oscar_unigram()
         self.word = list(self.counts.keys())
         self.n = 0
         for i in self.word:

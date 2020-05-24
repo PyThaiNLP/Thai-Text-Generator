@@ -74,3 +74,20 @@ def load_ttc_unigram()->dict:
             else:
                 data["<s/>"] = int(_temp[-1])
     return data
+
+##https://drive.google.com/uc?id=1Xik_9IpasiuW5MXyiAA4UcmbRm0jLcj5
+def load_oscar_unigram()->dict:
+    corpus_path = get_path("oscar_word_freq.csv")
+    if Path(corpus_path).is_file()==False:
+        download("https://drive.google.com/uc?id=1Xik_9IpasiuW5MXyiAA4UcmbRm0jLcj5",corpus_path)
+    data = defaultdict(int)
+    with open(corpus_path,"r",encoding="utf-8") as f:
+        d = [i for i in f.readlines()]
+        del d[0]
+        for i in d:
+            _temp = i.strip().split(",")
+            if _temp[0]!=" " and '"' not in _temp[0]:
+                data[_temp[0]] = int(_temp[-1])
+            elif _temp[0]==" ":
+                data["<s/>"] = int(_temp[-1])
+    return data
