@@ -15,6 +15,8 @@ a=Unigram()
 print(a.gen_sentence(N=10))
 b=Bigram()
 print(b.gen_sentence(start_seq="คน", N=10))
+c=Tigram()
+c.gen_sentence(N=10, start_seq=("คน","ดี"))
 ```
 
 ## License
