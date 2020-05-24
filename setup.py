@@ -21,7 +21,7 @@ setup(
     long_description_content_type="text/markdown",
     author="Wannaphong Phatthiyaphaibun",
     author_email="wannaphong@kkumail.com",
-    url="https://github.com/wannaphong/Thai-Text-Generator",
+    url="https://github.com/pythainlp/Thai-Text-Generator",
     packages=find_packages(),
     test_suite="tests",
     python_requires=">=3.6",
