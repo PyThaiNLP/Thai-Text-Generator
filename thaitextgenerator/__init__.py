@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import random
 import thaitextgenerator.corpus
+from collections import defaultdict
 
 class Unigram:
     def __init__(self,name:str="tnc"):
@@ -87,10 +88,11 @@ class Bigram:
                 self._temp = [j for j in self.bi_keys if j[0]==self.late_word and j[1]!="<s/>"]
             else:
                 self._temp = [j for j in self.bi_keys if j[0]==self.late_word and j[1]!="<s/>" and j[1] not in self.list_word]
-            self._probs = [self.prob(self.late_word,i[-1]) for i in self._temp]
-            if max(self._probs)<prob:
+            self._probs = [self.prob(self.late_word,l[-1]) for l in self._temp]
+            self._p2 = [j for j in self._probs if j>=prob]
+            if len(self._p2)==0:
                 break
-            self.items = self._temp[self._probs.index(max(self._probs))]
+            self.items = self._temp[self._probs.index(random.choice(self._p2))]
             self.late_word = self.items[-1]
             self.list_word.append(self.late_word)
         if output_str:
