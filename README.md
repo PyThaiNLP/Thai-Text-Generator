@@ -40,9 +40,9 @@ from thaitextgenerator import *
 
 we support corpus
 
-- TNC : Thai National Corpus (Default)
-- TCC : Thai Textbook Corpus
-- oscar : Open Super-large Crawled ALMAnaCH coRpus
+- TNC : Thai National Corpus [source](https://github.com/korakot/thainlp) (Default)
+- TCC : Thai Textbook Corpus [source](https://github.com/korakot/thainlp)
+- oscar : Open Super-large Crawled ALMAnaCH coRpus [source](https://www.facebook.com/groups/colab.thailand/permalink/1524070061101680/)
 
 ```python
 Unigram(name = "tnc or tcc or oscar")
@@ -54,7 +54,7 @@ Unigram().gen_sentence(N:int=3,prob:float=0.001, start_seq:str=None ,output_str:
 
 we support corpus
 
-- TNC : Thai National Corpus (Default)
+- TNC : Thai National Corpus (Default) [source](http://www.arts.chula.ac.th/ling/tnc/)
 
 ```python
 Bigram(name = "tnc")
@@ -66,7 +66,7 @@ Bigram().gen_sentence(N:int=4,prob:float=0.001, start_seq:str=None, output_str:b
 
 we support corpus
 
-- TNC : Thai National Corpus (Default)
+- TNC : Thai National Corpus (Default) [source](http://www.arts.chula.ac.th/ling/tnc/)
 
 ```python
 Tigram(name = "tnc")
@@ -75,6 +75,9 @@ Bigram().gen_sentence(N:int=4,prob:float=0.001, start_seq:tuple=None, output_str
 ```
 
 ### Thai2Fit
+
+[source](https://github.com/cstorm125/thai2fit)
+
 ```python
 # Thai2Fit
 from thaitextgenerator.thai2fit import gen_sentence
