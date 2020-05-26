@@ -15,7 +15,7 @@ extras = {
 
 setup(
     name="ttg",
-    version="0.1-dev2",
+    version="0.1-dev3",
     description="Thai Text Generator library",
     long_description=readme,
     long_description_content_type="text/markdown",
