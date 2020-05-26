@@ -1,4 +1,6 @@
 # TTG : Thai Text Generator
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1X6D8J0sWNi8UgJi7Hk5YL4FqepZ7laxS?usp=sharing]
+
 Thai Text Generator
 
 ## Install
