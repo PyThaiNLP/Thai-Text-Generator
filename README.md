@@ -81,6 +81,26 @@ from thaitextgenerator.thai2fit import gen_sentence
 en_sentence(N:int=4,prob:float=0.001, start_seq:str=None, output_str:bool = True)
 ```
 
+## Citations
+
+```
+Wannaphong Phatthiyaphaibun. (2020, May 24). TTG: Thai Text Generator. Zenodo. http://doi.org/10.5281/zenodo.3855426
+```
+
+BibTeX entry:
+
+``` bib
+@software{wannaphong_phatthiyaphaibun_2020_3855427,
+  author       = {Wannaphong Phatthiyaphaibun},
+  title        = {{TTG: Thai Text Generator}},
+  month        = may,
+  year         = 2020,
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.3855426},
+  url          = {https://doi.org/10.5281/zenodo.3855426}
+}
+```
+
 ## License
 ```
    Copyright 2020 Wannaphong Phatthiyaphaibun
