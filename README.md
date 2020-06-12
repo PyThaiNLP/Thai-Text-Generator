@@ -71,7 +71,7 @@ we support corpus
 ```python
 Tigram(name = "tnc")
 
-Bigram().gen_sentence(N:int=4,prob:float=0.001, start_seq:tuple=None, output_str:bool = True, duplicate:bool=False)
+Tigram().gen_sentence(N:int=4,prob:float=0.001, start_seq:tuple=None, output_str:bool = True, duplicate:bool=False)
 ```
 
 ### Thai2Fit
