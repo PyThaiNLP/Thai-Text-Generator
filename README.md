@@ -3,6 +3,8 @@
 
 Thai Text Generator
 
+> Moved to https://github.com/PyThaiNLP/pythainlp
+
 ## Install
 
 ```sh
